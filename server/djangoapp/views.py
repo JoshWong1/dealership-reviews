@@ -88,6 +88,7 @@ def get_dealer_details(request, dealer_id):
         url = "https://us-south.functions.appdomain.cloud/api/v1/web/710ea3b4-6b8b-4d48-bc2f-76a574cc475d/dealership-package/get_reviews"
         reviews = get_dealer_by_id_from_cf(url, dealer_id)
         review_names = ' '.join([review.name for review in reviews])
+        
         return HttpResponse(review_names)
 
 # Create a `add_review` view to submit a review

@@ -51,16 +51,16 @@ def get_dealers_from_cf(url, **kwargs):
 def get_dealer_by_id_from_cf(url, dealerId):
    
     results = []
-    json_result = get_request(url, dealerId=dealerId)
+    json_result = get_request(url, id=dealerId)
     if json_result:
-        reviews = json_result["body"]
+        reviews = json_result["data"]["docs"]
         for review in reviews:
-            review_doc = review["doc"]
-            review_obj = DealerReview(dealership = review_doc["dealership"], name=review_doc["name"], purchase=review_doc["purchase"],
-                                   review=review_doc["review"], purchase_date=review_doc["purchase_date"], car_make=review_doc["car_make"],
-                                   car_model=review_doc["car_model"],
-                                   car_year=review_doc["car_year"], sentiment="positive", id=review_doc["id"])
+            review_obj = DealerReview(dealership = review["dealership"], name=review["name"], purchase=review["purchase"],
+                                  review=review["review"], purchase_date=review["purchase_date"], car_make=review["car_make"],
+                                   car_model=review["car_model"],
+                                   car_year=review["car_year"], sentiment="positive", id=review["id"])
             results.append(review_obj)   
+               
     return results
 
 
