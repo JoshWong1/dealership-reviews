@@ -4,7 +4,7 @@ from django.utils.timezone import now
 
 #CarMake model
 class CarMake(models.Model):
-    name = models.CharField(max_length=30, default = "make name")
+    name = models.CharField(max_length=30)
     description = models.CharField(max_length=1000)
 
     def __str__(self):
@@ -15,7 +15,7 @@ class CarModel(models.Model):
     modelId = models.ForeignKey(CarMake, on_delete=models.CASCADE)
     Sedan, SUV, WAGON = "Sedan", "SUV", "WAGON"
     carModels = [(Sedan, "Sedan"), (SUV, "SUV"), (WAGON, "WAGON")]
-    name = models.CharField(max_length=30, default = "model name")
+    name = models.CharField(max_length=30)
     dealerID = models.IntegerField()
     Type = models.CharField(max_length=10, choices = carModels, default="Sedan")
     year = models.DateField()

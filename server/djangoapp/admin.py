@@ -4,7 +4,7 @@ from .models import CarModel, CarMake
 # CarModelInline class
 class CarModelInline(admin.StackedInline):
     model = CarModel
-    extra = 5
+    extra = 3
 
 # CarModelAdmin class
 class CarModelAdmin(admin.ModelAdmin):
@@ -14,7 +14,9 @@ class CarModelAdmin(admin.ModelAdmin):
 class CarMakeAdmin(admin.ModelAdmin):
     inlines = [CarModelInline]
     list_display=['name', 'description']
+    search_fields = ['name', 'description']
 
 # Register models here
-admin.site.register(CarMake)
-admin.site.register(CarModel)
+admin.site.register(CarModel, CarModelAdmin)
+admin.site.register(CarMake, CarMakeAdmin)
+
