@@ -3,6 +3,24 @@ from django.utils.timezone import now
 
 
 # Create your models here.
+class CarModel(models.Model):
+    Sedan, SUV, WAGON = "Sedan", "SUV", "WAGON"
+    carModels = [(Sedan, "Sedan"), (SUV, "SUV"), (WAGON, "WAGON")]
+    name = models.CharField(max_length=30, default = "model name")
+    dealerID = models.IntegerField()
+    Type = models.CharField(max_length=10, choices = carModels, default="Sedan")
+    year = models.DateField()
+
+    def __str__(self):
+        return "Name: " + self.name + ", Type: " + self.Type + ", Year: " + str(self.year)
+
+class CarMake(models.Model):
+    modelId = models.ForeignKey(CarModel, on_delete=models.CASCADE)
+    name = models.CharField(max_length=30, default = "make name")
+    description = models.CharField(max_length=1000)
+
+    def __str__(self):
+        return "Name: " + self.name + ", Description:" + self.description
 
 # <HINT> Create a Car Make model `class CarMake(models.Model)`:
 # - Name
