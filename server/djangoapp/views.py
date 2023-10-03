@@ -87,11 +87,22 @@ def get_dealer_details(request, dealer_id):
     if request.method == "GET":
         url = "https://us-south.functions.appdomain.cloud/api/v1/web/710ea3b4-6b8b-4d48-bc2f-76a574cc475d/dealership-package/get_reviews"
         reviews = get_dealer_by_id_from_cf(url, dealer_id)
-        review_names = ' '.join([review.name for review in reviews])
+        review_names = ' '.join([review.name + " Sentiment:" + review.sentiment for review in reviews])
         
         return HttpResponse(review_names)
 
-# Create a `add_review` view to submit a review
-# def add_review(request, dealer_id):
-# ...
+# View to submit a review
+def add_review(request, dealer_id):
+    if not request.user_is_authenticated:
+        print("User is not authenticated")
+        return request.redirect("djangoapp:index")
+
+    if request.method = "POST":
+        review = dict()
+        review["time"] = datetime.utcnow().isoformat()
+        review["dealership"] = dealer_id
+        review["name"] = f"{user.first_name} {user.last_name}"
+        review["review"] = request.POST['content']
+        review["purchase"] = request.post("purchase")
+    return 1
 
