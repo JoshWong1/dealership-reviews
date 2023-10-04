@@ -93,6 +93,3 @@ def analyze_review_sentiments(text):
     label = response['sentiment']['document']['label']
     return(label)
  
-
-
-

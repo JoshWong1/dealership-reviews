@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
 # from .models import related models
-from .restapis import get_dealers_from_cf, get_dealer_by_id_from_cf
+from .restapis import get_dealers_from_cf, get_dealer_by_id_from_cf, post_request
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from datetime import datetime
@@ -98,11 +98,21 @@ def add_review(request, dealer_id):
         return request.redirect("djangoapp:index")
 
     if request.method = "POST":
-        review = dict()
+        url = "https://us-south.functions.appdomain.cloud/api/v1/web/710ea3b4-6b8b-4d48-bc2f-76a574cc475d/dealership-package/post-review"
+        review = {}
         review["time"] = datetime.utcnow().isoformat()
         review["dealership"] = dealer_id
         review["name"] = f"{user.first_name} {user.last_name}"
-        review["review"] = request.POST['content']
-        review["purchase"] = request.post("purchase")
+        review["review"] = request.POST["review"]
+        review["purchase"] = request.POST["purchase"]
+        review["car_year"] = request.POST["car_year"]
+        review["car_make"] = request.POST["car_make"]
+        review["car_model"] = request.POST["car_model"]
+        review["purchase_date"] = request.POST["purchase_date"]
+        review["id"] = request.POST["id"]
+
+        json_payload ={"review" : review}
+        post_request(url, json_payload, dealerId=dealer_id)
+        return redirect("djangoapp:dealer_details", dealer_id=dealer_id)
     return 1
 
