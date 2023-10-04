@@ -77,10 +77,11 @@ def registration_request(request):
 # Update the `get_dealerships` view to render the index page with a list of dealerships
 def get_dealerships(request):
     if request.method == "GET":
+        context = {}
         url = "https://us-south.functions.appdomain.cloud/api/v1/web/710ea3b4-6b8b-4d48-bc2f-76a574cc475d/dealership-package/get-dealerships"
         dealerships = get_dealers_from_cf(url)
-        dealer_names = ' '.join([dealer.short_name for dealer in dealerships])
-        return HttpResponse(dealer_names)
+        context['dealership_list'] = dealerships
+        return render(request, "djangoapp/index.html", context)
 
 
 def get_dealer_details(request, dealer_id):
@@ -97,7 +98,7 @@ def add_review(request, dealer_id):
         print("User is not authenticated")
         return request.redirect("djangoapp:index")
 
-    if request.method = "POST":
+    if request.method == "POST":
         url = "https://us-south.functions.appdomain.cloud/api/v1/web/710ea3b4-6b8b-4d48-bc2f-76a574cc475d/dealership-package/post-review"
         review = {}
         review["time"] = datetime.utcnow().isoformat()
