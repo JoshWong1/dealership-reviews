@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
-# from .models import related models
+from .models import CarDealer, CarMake, CarModel
 from .restapis import get_dealers_from_cf, get_dealer_by_id_from_cf, get_dealer_reviews_from_cf, post_request
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
@@ -95,12 +95,23 @@ def get_dealer_details(request, dealer_id):
 
 # View to submit a review
 def add_review(request, dealer_id):
-    if not request.user_is_authenticated:
+    if not request.user.is_authenticated:
         print("User is not authenticated")
         return request.redirect("djangoapp:index")
 
+    if request.method == "GET":
+        context = {"dealer_id": dealer_id}
+        cars = list(CarModel.objects.filter(dealerID=dealer_id))
+        for car in cars:
+            car.year = str(str(car.year).split('-')[0])
+        context["cars"] = cars
+        url1 = "https://us-south.functions.appdomain.cloud/api/v1/web/710ea3b4-6b8b-4d48-bc2f-76a574cc475d/dealership-package/get-dealerships"
+        dealer = get_dealer_by_id_from_cf(url1, dealer_id)
+        context["dealer"] = dealer
+        return render(request, "djangoapp/add_review.html", context)
+        
     if request.method == "POST":
-        url = "https://us-south.functions.appdomain.cloud/api/v1/web/710ea3b4-6b8b-4d48-bc2f-76a574cc475d/dealership-package/post-review"
+        url2 = "https://us-south.functions.appdomain.cloud/api/v1/web/710ea3b4-6b8b-4d48-bc2f-76a574cc475d/dealership-package/post-review"
         review = {}
         review["time"] = datetime.utcnow().isoformat()
         review["dealership"] = dealer_id
@@ -114,7 +125,7 @@ def add_review(request, dealer_id):
         review["id"] = request.POST["id"]
 
         json_payload ={"review" : review}
-        post_request(url, json_payload, dealerId=dealer_id)
+        post_request(url2, json_payload, dealerId=dealer_id)
         return redirect("djangoapp:dealer_details", dealer_id=dealer_id)
     return 1
 
