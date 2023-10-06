@@ -116,7 +116,7 @@ def add_review(request, dealer_id):
         review["time"] = datetime.utcnow().isoformat()
         review["dealership"] = dealer_id
         review["name"] = f"{user.first_name} {user.last_name}"
-        review["review"] = request.POST["review"]
+        review["review"] = request.POST["content"]
         review["purchase"] = request.POST["purchase"]
         review["car_year"] = request.POST["car_year"]
         review["car_make"] = request.POST["car_make"]
