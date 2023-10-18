@@ -24,6 +24,3 @@ The Dealership Reviews Web Application offers the following functionalities:
 4. **Admin Panel**:
    - An administrative panel grants authorized users access to add car models and car makes.
 
-**Contributors**
-
-- Josh Wong(https://github.com/JoshWong1)
