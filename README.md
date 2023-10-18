@@ -2,7 +2,7 @@
 
 **Introduction**
 
-Welcome to the "Dealership Reviews Web Application," a project developed as part of the IBM Full Stack Developer Professional Certificate program. This web application serves as a platform where registered users can contribute reviews and gain insights into various car dealerships. Below, we outline the project's key features and functionalities.
+Welcome to the "Dealership Reviews Web Application", a project developed as part of the IBM Full Stack Developer Professional Certificate program. This web application serves as a platform where registered users can contribute reviews and gain insights into various car dealerships. Below, we outline the project's key features and functionalities.
 
 **Key Functionalities**
 
