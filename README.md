@@ -14,10 +14,13 @@ Location-Based Filtering: Enables users to filter dealerships based on their loc
 Detailed Dealership View: Provides a dedicated page to explore specific details and information about a chosen dealership.
 User Login and Authentication:
 
-Secure user authentication system ensures that registered users can log in and access personalized features.
-**Admin Panel:**
-
-An administrative panel grants authorized users access to add car models and car makes, enriching the system's database.
-**Review Submission:**
-
+**Review Submission**
 Allows registered users to submit reviews for specific dealerships, enhancing the community-driven aspect of the application.
+
+**User Login and Authentication**
+Secure user authentication system ensures that registered users can log in and access personalized features.
+
+**Admin Panel:**
+An administrative panel grants authorized users access to add car models and car makes.
+
+
